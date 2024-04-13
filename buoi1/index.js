@@ -19,6 +19,7 @@ function generateRandomUser() {
 
 const app = http.createServer((request, response) => {
     const { query } = url.parse(request.url, true);
+    const { userName, email, address, age } = query;
     const endpoint = request.url
     const method = request.method
     switch(endpoint) {
@@ -43,9 +44,8 @@ const app = http.createServer((request, response) => {
                 response.end(JSON.stringify(users));
             }
             break;
-        case '/users/add': 
+        case `/users/add/userName=${userName}&email=${email}&address=${address}&age=${age}`: 
             if (method === "GET") {
-                const { userName, email, address, age } = query;
                 const newUser = {
                     id: generateRandomUser().id,
                     userName: userName || '',
